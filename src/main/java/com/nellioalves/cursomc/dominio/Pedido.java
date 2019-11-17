@@ -1,50 +1,36 @@
 package com.nellioalves.cursomc.dominio;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 
 @Entity
-public class Categoria implements Serializable {
+public class Pedido implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
-	private String nome;
-	@ManyToMany
-	@JoinTable(name = "PRODUTO_CATEGORIA"
-			, joinColumns = @JoinColumn(name = "produto_id")
-			, inverseJoinColumns = @JoinColumn(name = "categoria_id")
-	)
-	private List<Produto> produtos = new ArrayList<>();
+	private Date instance;
 
-	public Categoria() {
+	public Pedido() {
 	}
-	public Categoria(Integer id, String nome) {
+	public Pedido(Integer id, Date date) {
 		super();
 		this.id = id;
-		this.nome = nome;
+		this.instance = date;
 	}
-
 	@Override
 	public String toString() {
-		return "Categoria [id=" + id + ", nome=" + nome + "]";
+		return "Pedido [id=" + id + ", date=" + instance + "]";
 	}
 	public Integer getId() { return this.id; }
-	public String getNome() { return this.nome; }
-	public List<Produto> getProdutos() { return this.produtos; }
-	public void setNome(String nome) { this.nome = nome; }
+	public Date getDate() { return this.instance; }
 	public void setId(Integer id) { this.id = id; }
-	public void setProdutos(List<Produto> produtos) { this.produtos = produtos; }
-
+	public void setDate(Date date) { this.instance = date; }
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -60,7 +46,7 @@ public class Categoria implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Categoria other = (Categoria) obj;
+		Pedido other = (Pedido) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
@@ -68,5 +54,4 @@ public class Categoria implements Serializable {
 			return false;
 		return true;
 	}
-
 }
